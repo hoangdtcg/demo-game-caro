@@ -1,0 +1,14 @@
+Bài 1 - Mùa euro đang hot, Hoàng vì đam mê bóng đá nên đã ra tiệm cầm đồ
+mượn số tiền 12 triệu đồng với số lãi là 2%/ngày. Hỏi:
+Sau 60 ngày số tiền Hoàng phải trả là bao nhiêu tiền.
+Biết rằng lãi cộng dồn.(lãi kép - lãi mẹ đẻ lãi con).
+
+Bài 2: Tính tổng các số chia hết cho 3 , 5, 7 từ 1 -> 200;
+
+Bài 3: Hiển thị các 20 số fibonacci: 0,1,1,2,3,5,8,13,21,34....
+--------------------------------------------------------------------
+
+NV1: Chuyển đổi các số cứng thành chương trình có ô input - các nhóm đẩy lên netlify
+NV2: Nhập vào 1 số, kiểm tra xem số đó có phải số fibonacci hay không **
+NV3: Hiển thị ra 10 số nguyên tố đầu tiên. *
+---------------------------------------------------------------------------------------

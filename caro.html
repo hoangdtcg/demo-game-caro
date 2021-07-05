@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cờ Caro</title>
+</head>
+<style>
+    td {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        font-size: 30px;
+    }
+</style>
+
+<body>
+    <table border="1" id="banChoi" cellspacing=0>
+    </table>
+    <script>
+        let row = 10;
+        let col = 10;
+        let luotChoi = "x";
+        function taoBanChoi() { //createBoard
+            let str = "";
+            for (let i = 0; i < row; i++) {
+                str += "<tr>";
+                for (let j = 0; j < col; j++) {
+                    str += "<td id=cell-" + i + "-" + j + " onclick='danhVaoO(this)'></td>"; //this = td
+                }
+                str += "</tr>";
+            }
+            document.getElementById("banChoi").innerHTML = str;
+        }
+        taoBanChoi();
+
+        function danhVaoO(td) { //clickCell
+            if (td.innerHTML == "") {
+                td.innerHTML = luotChoi;
+                if (luotChoi == "x") {
+                    luotChoi = 'o';
+                } else {
+                    luotChoi = 'x';
+                }
+            }
+            checkNgang();
+        }
+
+        function checkNgang() {
+            let count = 1;
+            //Check từng hàng
+            for (let irow = 0; irow < row; irow++) {
+                count = 1;
+                //Check từng cột
+                for (let icol = 0; icol < col - 1; icol++) {
+                    let mot = document.getElementById("cell-" + irow + "-" + icol).innerHTML;
+                    let hai = document.getElementById("cell-" + irow + "-" + (icol + 1)).innerHTML;
+                    if (mot == hai && mot != "" && hai != "") {
+                        count++;
+                    }else{
+                        count = 2;
+                    }
+                }
+                if (count >= 5) {
+                    alert("Win");
+                }
+                //
+            }
+        }
+
+        function kiemtraHangDoc(R , C){
+            let check = document.getElementById("cell-"+R+"-"+C).innerHTML;
+            let count = 1;
+            let iRow = 0;
+            let iCol = 0;
+            let value = "";
+            for (let i = 1; i< 5; i++){
+                iRow = R;
+                iCol = C - i;
+                if (iRow < 0 || iCol < 0 || iRaw >= row || iCol >= col){
+                    break;
+                } 
+                value = document.getElementById("cell-"+iRow+"-"+iCol).innerHTML;
+                if (value == check){
+                    count++;
+                }
+                else{
+                    break;
+                }
+            }
+            for (let i = 1; i< 5; i++){
+                iRow = R;
+                iCol = C + i;
+                if (iRow < 0 || iCol < 0){
+                    break;
+                } 
+                value = document.getElementById("cell-"+iRow+"-"+iCol).innerHTML;
+                if (value == check){
+                    count++;
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

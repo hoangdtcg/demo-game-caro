@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cờ Caro</title>
+</head>
+<style>
+    td {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        font-size: 30px;
+    }
+
+    .redColor{
+        color: red;
+    }
+
+    .blueColor{
+        color: blue;
+    }
+
+    .win{
+        background-color: green;
+        color:white;
+    }
+</style>
+
+<body>
+    <table border="1" id="banChoi" cellspacing=0>
+    </table>
+    <script>
+        let row = 30;
+        let col = 30;
+        let winCell = [];
+        const WIN_COUNT = 5;
+        let luotChoi = "x";
+        function taoBanChoi() { //createBoard
+            let str = "";
+            for (let i = 0; i < row; i++) {
+                str += "<tr>";
+                for (let j = 0; j < col; j++) {
+                    str += "<td id=cell-" + i + "-" + j + " onclick='danhVaoO(" + i + ',' + j + ")'></td>"; //this = td
+                }
+                str += "</tr>";
+            }
+            document.getElementById("banChoi").innerHTML = str;
+        }
+        taoBanChoi();
+
+        function danhVaoO(i, j) { //clickCell
+            let td = document.getElementById('cell-' + i + "-" + j);
+            if (td.innerHTML == "") {
+                td.innerHTML = luotChoi;
+                if (luotChoi == "x") {
+                    luotChoi = 'o';
+                    td.classList.add('blueColor');
+                } else {
+                    luotChoi = 'x';
+                    td.classList.add('redColor');
+                }
+            }
+            // checkNgang();
+            checkHorizontal(i, j); //check ngang
+            checkVertical(i, j);
+            checkCross1(i,j);
+            checkCross2(i,j);
+        }
+
+        function checkHorizontal(i, j) { //kiem tra hang ngang
+            winCell = [];
+            let count = 1;
+            let value = document.getElementById('cell-' + i + "-" + j).innerHTML;
+            let x = 1;
+            if (j < col - 1) {
+                while (value == document.getElementById('cell-' + i + "-" + (j + x)).innerHTML) {
+                    count++;
+                    x++;
+                }
+            }
+
+            x = 1;
+            if (j > 1) {
+                while (value == document.getElementById('cell-' + i + "-" + (j - x)).innerHTML) {
+                    count++;
+                    x++;
+                }
+            }
+
+            gameOver(count,winCell);
+        }
+
+        function checkVertical(i, j) { //check hang doc
+            winCell = [document.getElementById('cell-' + i + "-" + j)];
+            let count = 1;
+            let value = document.getElementById('cell-' + i + "-" + j).innerHTML;
+            let y = 1;
+            if (j < row - 1) {
+                while (value == document.getElementById('cell-' + (i + y) + "-" + j).innerHTML) {
+                    winCell.push(document.getElementById('cell-' + (i + y) + "-" + j));
+                    count++;
+                    y++;
+                }
+            }
+
+            y = 1;
+            if (j > 1) {
+                while (value == document.getElementById('cell-' + (i - y) + "-" + j).innerHTML) {
+                    winCell.push(document.getElementById('cell-' + (i - y) + "-" + j));
+                    count++;
+                    y++;
+                    
+                }
+            }
+
+            gameOver(count,winCell);
+
+        }
+
+        function checkCross1(i, j) { //check hang cheo 1
+            let count = 1;
+            let value = document.getElementById('cell-' + i + "-" + j).innerHTML;
+            let c = 1;
+            if (j < row - 1 && i > 1) {
+                while (value == document.getElementById('cell-' + (i + c) + "-" + (j - c)).innerHTML) {
+                    count++;
+                    c++;
+                }
+            }
+
+            c = 1;
+            if (j > 1) {
+                while (value == document.getElementById('cell-' + (i - c) + "-" + (j + c)).innerHTML) {
+                    count++;
+                    c++;
+                }
+            }
+
+            gameOver(count,winCell);
+        }
+
+        function checkCross2(i, j) { //check hang cheo 2
+            let count = 1;
+            let value = document.getElementById('cell-' + i + "-" + j).innerHTML;
+            let c = 1;
+            if (j < col - 1) {
+                while (value == document.getElementById('cell-' + (i + c) + "-" + (j + c)).innerHTML) {
+                    count++;
+                    c++;
+                }
+            }
+
+            c = 1;
+            if (j > 1) {
+                while (value == document.getElementById('cell-' + (i - c) + "-" + (j - c)).innerHTML) {
+                    count++;
+                    c++;
+                }
+            }
+            gameOver(count,winCell);
+
+        }
+
+        function gameOver(count,winCell) {
+            if (count >= WIN_COUNT) {
+                for(let i = 0;i < winCell.length;i++){
+                    winCell[i].classList.add('win');
+                }
+            }
+        }
+
+
+        // function checkNgang() {
+        //     let count = 1;
+        //     //Check từng hàng
+        //     for (let irow = 0; irow < row; irow++) {
+        //         count = 1;
+        //         //Check từng cột
+        //         for (let icol = 0; icol < col - 1; icol++) {
+        //             let mot = document.getElementById("cell-" + irow + "-" + icol).innerHTML;
+        //             let hai = document.getElementById("cell-" + irow + "-" + (icol + 1)).innerHTML;
+        //             if (mot == hai && mot != "" && hai != "") {
+        //                 count++;
+        //             }else{
+        //                 count = 2;
+        //             }
+        //         }
+        //         if (count >= 5) {
+        //             alert("Win");
+        //         }
+        //         //
+        //     }
+        // }
+
+
+    </script>
+</body>
+
+</html>

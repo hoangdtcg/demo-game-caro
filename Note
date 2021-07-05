@@ -1,0 +1,10 @@
+Làm trò chơi cờ caro.
+- Các bước làm.
+B1 : Tạo bảng
+B2 : Tạo biến lượt chơi
+B3 : Click X, O
+B4 : Check win
+    - Check ngang
+    - Check doc
+    - Check cheo1
+    - Check cheo2
